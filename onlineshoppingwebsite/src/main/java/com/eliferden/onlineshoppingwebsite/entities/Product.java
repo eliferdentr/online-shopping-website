@@ -7,9 +7,10 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
-@Data
-
+@Getter
+@Setter
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +28,23 @@ public class Product {
     private Integer stock;
 
     @Column(name = "image_url", nullable = true)
-    String imageUrl;
+    private String imageUrl;
 
+    @ManyToOne (fetch = FetchType.EAGER)
+        @JoinColumn(name = "category_id")
+    private  Category category;
+
+    public Product() {
+    }
+
+    public Product(String name, String description, BigDecimal price, Integer stock, String imageUrl, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.imageUrl = imageUrl;
+        this.category = category;
+    }
 
 
 }
